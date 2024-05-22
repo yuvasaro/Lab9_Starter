@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", (event) => {
+    // step 5
+    window.onerror = function (errorMessage, url, lineNumber) {
+        console.log("Some blunder transpired. Quite the tragedy.");
+    }
+
     let output = document.querySelector('output');
-    let buttons = document.querySelector('#error-btns');
     let form = document.querySelector('form');
     
     let log = document.querySelector('#log');
@@ -22,21 +26,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
     log.addEventListener('click', () => {
         console.log("The output is " + output.innerHTML);
     });
+
     error.addEventListener('click', () => {
         console.error("Error, I don't like the output " + output.innerHTML);
     });
+
     count.addEventListener('click', () => {
-        console.count("Number of times the output has been " + output.innerHTML);
+        console.count("Spam counter");
     });
+
     warn.addEventListener('click', () => {
         console.warn("Warning: The output is " + output.innerHTML);
     });
+
     assert.addEventListener('click', () => {
         console.assert(typeof(output.innerHTML) === typeof(0), "%o", output.innerHTML + " is actually still a string");
     });
+
     clear.addEventListener('click', () => {
         console.clear();
     });
+
     dir.addEventListener('click', () => {
         const formData = new FormData(form);
         const formObject = {};
@@ -46,6 +56,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         formObject['output'] = output.innerHTML;
         console.dir(formObject);
     });
+
     dirxml.addEventListener('click', () => {
         const formData = new FormData(form);
         const formObject = {};
@@ -55,13 +66,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
         formObject['output'] = output.innerHTML;
         console.dirxml(formObject);
     });
+
     groupStart.addEventListener('click', () => {
-        console.group("Group " + output.innerHTML);
+        console.group("Group");
     });
+
     groupEnd.addEventListener('click', () => {
         console.groupEnd();
         console.log("Group ended");
     });
+
     table.addEventListener('click', () => {
         const formData = new FormData(form);
         const formObject = {};
@@ -71,17 +85,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
         formObject['output'] = output.innerHTML;
         console.table(formObject);
     });
+
     timerStart.addEventListener('click', () => {
         console.time();
         console.log("Timer started");
     });
+
     timerEnd.addEventListener('click', () => {
         console.timeEnd();
     });
-    trace.addEventListener('click', () => {
+
+    function traceThrough() {
         console.trace();
+    }
+
+    trace.addEventListener('click', () => {
+        traceThrough();
     });
+
     trigger.addEventListener('click', () => {
         throw new Error(output.innerHTML + " is a bad output");
     });
+
+    let ghost = document.querySelector("#ghost");
+    ghost.addEventListener('click', () => {
+        try {
+            let ghostText = document.querySelector("ghost-text"); // oops, I used let instead of var
+            ghostText.textContent = "Found the ghost!";
+        } catch (error) {
+            console.error("[try/catch] tried to access ghost text");
+        } finally {
+            console.log("[finally] oh well, the ghost remains a ghost");
+        }
+    });
+
+    let nerd = document.querySelector("#nerd");
+    nerd.addEventListener('click', () => {
+        let important = document.querySelector("#important");
+        important.textContent = "Important message! Check console!!!";
+        throw new NerdError("You are a nerd");
+    });                
 });

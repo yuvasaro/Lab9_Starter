@@ -5,7 +5,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "df597f64da0145b691505490b0bc448a"
+    });
+  </script>              
   <script src="main.js"></script>
+  <script src="customError.js"></script>
   <title>Lab 9</title>
 
   <style>
@@ -35,7 +42,7 @@
       width: 800px;
     }
 
-    #error-btns {
+    #error-btns, #ghost, #nerd {
       column-gap: 5px;
       display: flex;
       flex-wrap: wrap;
@@ -69,7 +76,7 @@
       </fieldset>
     </form>
 
-    <p>Note: Enter something in the error calculator before clicking buttons.</p>
+    <h2>Note: Enter something in the error calculator before clicking buttons.</h2>
     <section id="error-btns">
       <button id="log">Console Log</button>
       <button id="error">Console Error</button>
@@ -87,6 +94,12 @@
       <button id="trace">Console Trace</button>
       <button id="trigger">Trigger a Global Error</button>
     </section>
+
+    <button id="ghost">Try/Catch-ing the Ghost</button>
+    <h3 id="ghost-text">Ghost Text</h3>
+
+    <button id="nerd">Nerd Button</button>
+    <p id="important"></p>
   </main>
 
   <script>
